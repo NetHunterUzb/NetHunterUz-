@@ -1,0 +1,150 @@
+@import "tailwindcss";
+
+@theme {
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+@layer base {
+  body {
+    @apply bg-black text-[#00ff41] font-mono selection:bg-[#00ff41] selection:text-black overflow-hidden;
+  }
+}
+
+/* Matrix Rain Effect */
+.matrix-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.15;
+}
+
+/* Glitch Text Advanced */
+.glitch-text {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+}
+
+.glitch-text::before {
+  left: 2px;
+  text-shadow: -2px 0 #ff00c1;
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+
+.glitch-text::after {
+  left: -2px;
+  text-shadow: -2px 0 #00fff9, 2px 2px #ff00c1;
+  animation: glitch-anim2 1s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+  0% { clip: rect(31px, 9999px, 94px, 0); transform: skew(0.85deg); }
+  5% { clip: rect(70px, 9999px, 71px, 0); transform: skew(0.85deg); }
+  10% { clip: rect(17px, 9999px, 2px, 0); transform: skew(0.85deg); }
+  100% { clip: rect(67px, 9999px, 62px, 0); transform: skew(0.13deg); }
+}
+
+@keyframes glitch-anim2 {
+  0% { clip: rect(65px, 9999px, 100px, 0); transform: skew(0.13deg); }
+  23% { clip: rect(25px, 9999px, 34px, 0); transform: skew(0.13deg); }
+  100% { clip: rect(2px, 9999px, 91px, 0); transform: skew(0.13deg); }
+}
+
+/* Scanline Effect */
+.scanline {
+  width: 100%;
+  height: 100px;
+  z-index: 100;
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 255, 65, 0.15) 50%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  opacity: 0.1;
+  position: fixed;
+  bottom: 100%;
+  animation: scanline 8s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes scanline {
+  0% { bottom: 100%; }
+  100% { bottom: -100px; }
+}
+
+/* Cyber UI Elements */
+.terminal-window {
+  background: rgba(0, 5, 0, 0.95);
+  border: 1px solid rgba(0, 255, 65, 0.4);
+  box-shadow: 0 0 20px rgba(0, 255, 65, 0.1), inset 0 0 10px rgba(0, 255, 65, 0.05);
+  backdrop-filter: blur(10px);
+}
+
+.tool-card {
+  @apply relative p-5 border border-[#00ff41]/20 bg-black/40 hover:border-[#00ff41] hover:bg-[#00ff41]/5 transition-all cursor-pointer overflow-hidden;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
+}
+
+.tool-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00ff41, transparent);
+  transition: 0.5s;
+}
+
+.tool-card:hover::before {
+  left: 100%;
+}
+
+.cyber-button {
+  @apply relative px-6 py-2 bg-transparent border border-[#00ff41] text-[#00ff41] font-bold uppercase tracking-widest hover:bg-[#00ff41] hover:text-black transition-all duration-300;
+  clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
+}
+
+.cyber-input {
+  @apply w-full bg-black/60 border border-[#00ff41]/30 p-3 text-[#00ff41] focus:outline-none focus:border-[#00ff41] focus:ring-1 focus:ring-[#00ff41]/50 transition-all font-mono;
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(0, 255, 65, 0.05);
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #00ff41;
+  border-radius: 2px;
+}
+
+.crt-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+  z-index: 1000;
+}
